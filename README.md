@@ -19,7 +19,6 @@ Below are some screenshots of the app:
 ![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/5.jpg?raw=true)
 ![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/6.jpg?raw=true)
 ![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/7.jpg?raw=true)
-![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/8.jpg?raw=true)
 ![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/9.jpg?raw=true)
 
 <!---
