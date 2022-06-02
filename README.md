@@ -1,8 +1,16 @@
-- 👋 Hi, I’m Manoj Nair. I am from Pune, India 
-- 👀 I’m interested in Software design and developement, exploring and learning new technologies, reading about new tech innovations, latest happening in the field of science and cosmology
-- 🌱 I’m currently learning Kubernetes
-- 💞️ I’m looking to collaborate on any kind of application developement especially on Microsoft technology stack, Azure Cloud, ReactJS etc.
-- 📫 You can reach me by sending your emails to mannairofficial@gmail.com
+**SKEDULER (Appointment as a Service)**
+
+This was my personal project which I could not complete due to some other commitments.
+
+My original idea was to develop a multi-tenant SaaS solution to schedule and manage appointments of various service providers.
+This solution has two mobile apps i.e., customer app and service provider app and also backend services for both customer and service provider apps.
+Using customer mobile app, customers can book appointments of various registered service providers (Doctors, Salon, Lawyers etc.), manage booked appointments, get realtime notification of upcoming appointments and other advanced assitance w.r.t their appointments.
+Using service provider app, service providers can see and manage their daily appointments, update status etc.
+
+I could develop only customer facing Xamarin form app with some basic features to book and manage appointments. 
+I am uploading the code for anyone to use or refer in their projects.
+
+
 
 <!---
 manojnair007/manojnair007 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
