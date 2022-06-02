@@ -1,4 +1,5 @@
-**SKEDULER (Appointment as a Service) **
+**SKEDULER (Appointment as a Service)**
+
 This was my personal project which I could not complete due to some other commitments.
 
 My original idea was to develop a multi-tenant SaaS solution to schedule and manage appointments of various service providers.
