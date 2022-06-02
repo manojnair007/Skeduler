@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.ManageAppointmentsPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+               xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False"
+             Title="Manage Appointments"
+               x:Name="SelectAppointment"
+             Shell.PresentationMode="ModalAnimated"
+             Visual="Default">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="2">
+        <Frame IsVisible="{Binding AppointmentsNotFound}"  HasShadow="True" CornerRadius="3" Margin="5" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Label Text="You have no appointments" FontSize="18" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="Black" FontAttributes="Bold" Padding="0,0,0,0"/>
+        </Frame>
+        <CollectionView
+               IsVisible="{Binding AppointmentsNotFound,Converter={StaticResource InvertedBoolConverter}}"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsLayout="VerticalList"
+                BackgroundColor="Transparent"
+                ItemsSource="{Binding Appointments}"
+                HorizontalOptions="FillAndExpand"
+                SelectionMode="None">
+            <CollectionView.EmptyView>
+                <StackLayout>
+                    <ActivityIndicator IsVisible="True" VerticalOptions="CenterAndExpand" IsRunning="True"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Frame HasShadow="True" CornerRadius="3" Margin="5" Padding="2" HorizontalOptions="FillAndExpand" BackgroundColor="White"  HeightRequest="195">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                                <StackLayout BackgroundColor="{StaticResource Primary}" Padding="10,5">
+                                    <Label Text="{Binding OwnerName}" TextColor="White" FontAttributes="Bold"  FontSize="Medium"/>
+                                </StackLayout>
+                                <StackLayout Padding="10,5" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding DateLongFormat}" TextColor="DarkCyan" FontAttributes="Bold"  FontSize="18" />
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Scheduled Time:" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" TextColor="Black" FontAttributes="Bold"  FontSize="16" />
+                                        <Label Text="{Binding OrignalAttendingTimeString}" VerticalTextAlignment="Center" HorizontalTextAlignment="End"  HorizontalOptions="EndAndExpand" TextColor="Black" FontAttributes="Bold"  FontSize="18" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Revised Time:" VerticalTextAlignment="Center" TextColor="Black" HorizontalOptions="StartAndExpand" FontAttributes="Bold"  FontSize="16" />
+                                        <Label Text="{Binding RevisedAttendingTimeString}" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold"  HorizontalOptions="EndAndExpand"  FontSize="18" />
+                                    </StackLayout>
+                                    <Button Style="{StaticResource SecondaryButton}" VerticalOptions="Start" Text="Cancel Appointment" HeightRequest="50" Padding="2" Command="{Binding BindingContext.CancelAppointmentCommand, Source={x:Reference SelectAppointment}}" CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:SmartAppointment.Views"
+       Title="SmartAppointment"
+       xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+       x:Class="SmartAppointment.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}"  FlyoutItemIsVisible="False" >
+        <!--<ShellContent.Icon>
+          
+        </ShellContent.Icon>-->
+    </ShellContent>
+
+    <TabBar>
+        <ShellContent Title="Home" Route="SelectServicePage" ContentTemplate="{DataTemplate local:SelectServicePage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.Home}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Manage" ContentTemplate="{DataTemplate local:ManageAppointmentsPage}" >
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.ManageAppointment}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Profile" ContentTemplate="{DataTemplate local:ProfilePage}" >
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.Profile}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+    </TabBar>
+
+    <!--<Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout BackgroundColor="LightBlue">
+    
+                <Button Margin="20" Text="Logout"
+                        Command="{Binding LogoutCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
+                
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>-->
+    
+  
+</Shell>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.BookingConfirmationPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             BackgroundColor="White"
+             Shell.PresentationMode="ModalAnimated"
+             Shell.TabBarIsVisible="False"
+             Visual="Default">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <StackLayout Spacing="20" Padding="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding BookingInProgress}">
+            <Label Text="{Binding BookingStatusMessage}" TextColor="Black" FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center" />
+            <ActivityIndicator WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" IsVisible="True" IsRunning="True"/>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding BookingInProgress, Converter={StaticResource InvertedBoolConverter}}" Spacing="20" Padding="15" Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Label Text="{Binding BookingStatusMessage}" TextColor="Black" FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center" />
+            <Button  Style="{StaticResource PrimaryButton}" VerticalOptions="Start" CornerRadius="10" Text="Book New Slot" HeightRequest="50" Margin="5,0,10,15" Command="{Binding NewBookingCommand}" />
+            <Button  Style="{StaticResource PrimaryButton}" VerticalOptions="Start" CornerRadius="10" Text="Book New Appointment" HeightRequest="50" Margin="5,0,10,15" Command="{Binding NewAppointmentBookingCommand}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

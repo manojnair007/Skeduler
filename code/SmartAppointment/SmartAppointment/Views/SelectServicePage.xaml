@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.SelectServicePage"
+             xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+             Title="{Binding Title}"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Shell.FlyoutItemIsVisible="False"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             Shell.NavBarIsVisible="True"
+           
+             Visual="Default">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="10"  HeightRequest="230">
+            <Label Text="Upcoming appointments" FontSize="18" TextColor="White" FontAttributes="Bold" Padding="0,0,0,0"/>
+            <Frame IsVisible="{Binding AppointmentsFound,Converter={StaticResource InvertedBoolConverter}}"  HasShadow="True" CornerRadius="10" Margin="5" Padding="0" HorizontalOptions="FillAndExpand" WidthRequest="300" BackgroundColor="Azure"   HeightRequest="180">
+                <Label Text="You have no appointments" FontSize="18" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="Black" FontAttributes="Bold" Padding="0,0,0,0"/>
+            </Frame>
+            <StackLayout IsVisible="{Binding AppointmentsFound}">
+                <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding UpcomingAppointmentLoaded, Converter={StaticResource InvertedBoolConverter}}" IsRunning="{Binding UpcomingAppointmentLoaded, Converter={StaticResource InvertedBoolConverter}}"/>
+                <CollectionView
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsLayout="HorizontalList"
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"
+                IsVisible="{Binding UpcomingAppointmentLoaded}"
+                ItemsSource="{Binding UpcomingAppointments}"
+                SelectedItem="{Binding SelectedAppointment}"
+                HorizontalOptions="FillAndExpand" HeightRequest="185"
+                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Frame HasShadow="True" CornerRadius="10" Margin="5" Padding="0" HorizontalOptions="FillAndExpand" WidthRequest="300" BackgroundColor="Azure"   HeightRequest="180">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                                        <StackLayout BackgroundColor="Teal" Padding="10,5">
+                                            <Label Text="{Binding OwnerName}" TextColor="White" FontAttributes="Bold"  FontSize="Medium"/>
+                                        </StackLayout>
+                                        <StackLayout Padding="10,5" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding DateLongFormat}" TextColor="DarkCyan" FontAttributes="Bold"  FontSize="18" />
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                <Label Text="Scheduled Time:" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" TextColor="Black" FontAttributes="Bold"  FontSize="16" />
+                                                <Label Text="{Binding OrignalAttendingTimeString}" VerticalTextAlignment="Center" HorizontalTextAlignment="End"  HorizontalOptions="EndAndExpand" TextColor="Black" FontAttributes="Bold"  FontSize="18" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Revised Time:" VerticalTextAlignment="Center" TextColor="Black" HorizontalOptions="StartAndExpand" FontAttributes="Bold"  FontSize="16" />
+                                                <Label Text="{Binding RevisedAttendingTimeString}" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold"  HorizontalOptions="EndAndExpand"  FontSize="18" />
+                                            </StackLayout>
+                                            <Frame CornerRadius="5" BackgroundColor="ForestGreen" HorizontalOptions="Center" Padding="15,0,15,2">
+                                                <Label Text="On Time" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold"  FontSize="18" />
+                                            </Frame>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1" >
+            <StackLayout Orientation="Vertical" Padding="10" Spacing="5" VerticalOptions="FillAndExpand">
+                <Label Text="Doctor - Specialists" TextColor="Black" FontAttributes="Bold"  FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Start"/>
+                <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding DoctorsLoaded, Converter={StaticResource InvertedBoolConverter}}" IsRunning="{Binding DoctorsLoaded, Converter={StaticResource InvertedBoolConverter}}"/>
+                <CollectionView
+                    x:Name="doctor"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsLayout="HorizontalList"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Start"
+                    IsVisible="{Binding DoctorsLoaded}"
+                    ItemsSource="{Binding Doctor}"
+                    SelectedItem="{Binding SelectedService}"
+                    HorizontalOptions="FillAndExpand" HeightRequest="185"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                 <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference doctor}, Path=BindingContext.CategorySelectedCommand}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Frame HasShadow="True" CornerRadius="10" Margin="5" WidthRequest="300" Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="150">
+                                    <Grid>
+                                        <StackLayout BackgroundColor="AliceBlue" >
+                                            <ffimageloading:CachedImage
+                                                Source="{Binding ImageUrl}"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                CacheType="Disk"
+                                                Aspect="AspectFill" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" WidthRequest="200"
+                                                DownsampleToViewSize = "true"/>
+                                                
+                                        </StackLayout>
+                                        <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"  HorizontalTextAlignment="Center"  FontSize="Large" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Salon / SPA" TextColor="Black" FontAttributes="Bold"  FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Start"/>
+                <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding BeautyParlourLoaded, Converter={StaticResource InvertedBoolConverter}}" IsRunning="{Binding BeautyParlourLoaded, Converter={StaticResource InvertedBoolConverter}}"/>
+                <CollectionView
+                    x:Name="salon"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsLayout="HorizontalList"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Start"
+                    IsVisible="{Binding BeautyParlourLoaded}"
+                    ItemsSource="{Binding BeautyParlour}"
+                    SelectedItem="{Binding SelectedService}"
+                    HorizontalOptions="FillAndExpand" HeightRequest="185"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="CenterAndExpand" >
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference salon}, Path=BindingContext.CategorySelectedCommand}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Frame HasShadow="True" CornerRadius="10" Margin="5" WidthRequest="300" Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="150">
+                                    <Grid>
+                                        <StackLayout BackgroundColor="AliceBlue">
+                                            <ffimageloading:CachedImage
+                                                Source="{Binding ImageUrl}"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                CacheType="Disk"
+                                                Aspect="AspectFill" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" WidthRequest="200"
+                                                DownsampleToViewSize = "true"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"  HorizontalTextAlignment="Center"  FontSize="Large" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#29b6f6</Color>
+            <Color x:Key="Secondary">#f3797c</Color>
+            <Color x:Key="TextColor">#fff</Color>
+            <Color x:Key="WindowBackgroundColor">#FFF3E1</Color>
+            <Color x:Key="ColorAccent">#ffe57f</Color>
+            <Color x:Key="ColorAccentText">#4B4949</Color>
+            <Color x:Key="NavigationBarColor">#53c4f7</Color>
+            <Color x:Key="NavigationBarTextColor">#ffff8d</Color>
+            <Color x:Key="PrimaryCardColor">#2196F3</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource TextColor}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource TextColor}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationBarColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource NavigationBarTextColor}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TextColor}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource NavigationBarTextColor}"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style x:Key="PrimaryButton" TargetType="Button">
+                <Setter Property="Visual" Value="Default"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource TextColor}"></Setter>
+                <Setter Property="FontSize" Value="Medium"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="TextColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+                <Setter Property="TextColor" Value="{StaticResource ColorAccentText}"></Setter>
+
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ColorAccent}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ColorAccent}" />
+                                    <Setter Property="TextColor" Value="{StaticResource ColorAccentText}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>        
+    </Application.Resources>
+</Application>

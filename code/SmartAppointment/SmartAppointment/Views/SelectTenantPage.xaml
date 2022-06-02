@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.SelectTenantPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:sk="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+             xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Name="SelectTenant"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#efefef"
+             Title="{Binding Title}"
+             Visual="Default">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+              <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="#fafafa" Padding="2" >
+                <Button HorizontalOptions="CenterAndExpand" ContentLayout="Left" BackgroundColor="#fcfcfc" VerticalOptions="StartAndExpand" FontSize="Small" TextColor="Black" CornerRadius="5" Text="{Binding Location}" HeightRequest="50" Command="{Binding ChangeLocationCommand}" >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.Location}" Color="Navy" Size="Small"/>
+                    </Button.ImageSource>
+                </Button>
+                <!--<ActivityIndicator HeightRequest="20" WidthRequest="20" IsVisible="{Binding IsLocationNotDetected}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="{Binding IsLocationNotDetected}"/>-->
+                <!--<SearchBar x:Name="tenantSearch" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"></SearchBar>-->
+            </StackLayout>
+
+            <Frame IsVisible="{Binding TenantsNotFound}" HasShadow="False" CornerRadius="3" Margin="4"  Padding="4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Label  FontSize="Medium"  FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Column="1" Text="No service provider found!"  TextColor="Black" />
+            </Frame>
+
+
+            <CollectionView
+                IsVisible="{Binding TenantsNotFound,Converter={StaticResource InvertedBoolConverter}}"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsLayout="VerticalList"
+                BackgroundColor="Transparent"
+                RemainingItemsThreshold="1"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMoreTenantsCommand}"
+                ItemsSource="{Binding ServiceProviders}"
+                SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <ActivityIndicator IsVisible="True" VerticalOptions="CenterAndExpand" IsRunning="True"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame HasShadow="True" CornerRadius="5" Margin="4" WidthRequest="200" Padding="4" HorizontalOptions="FillAndExpand" HeightRequest="205">
+                                <StackLayout>
+                                    <Grid Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.RowSpan="4" Grid.Column="0" Padding="0" HorizontalOptions="CenterAndExpand" CornerRadius="100" IsClippedToBounds="True" HeightRequest="120"  HasShadow="False"  WidthRequest="120">  
+                                           
+                                            <ffimageloading:CachedImage
+                                                Source="{Binding PicUrl}"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                CacheType="Disk"
+                                                Aspect="AspectFill"  HorizontalOptions="FillAndExpand" WidthRequest="200"
+                                                DownsampleToViewSize = "true"/>
+                                        </Frame>
+
+                                        <Label Grid.Column="1" VerticalOptions="Start" Text="{Binding OwnerName}" FontAttributes="Bold"  FontSize="Medium" TextColor="Black"/>
+                                        <Label Grid.Row="1"  Grid.Column="1" Text="{Binding SubCategory}"  TextColor="Black" />
+                                        <Line  VerticalOptions="Start"
+                                           HorizontalOptions="FillAndExpand"
+                                           HeightRequest="1"
+                                           Grid.Row="2"
+                                           BackgroundColor="LightGray"
+                                           Grid.Column="1"/>
+
+                                        <Label Grid.Row="2"  VerticalOptions="Start" Grid.Column="1" Text="{Binding TenantName}"  TextColor="Black" />
+                                        <Label Grid.Row="3" VerticalOptions="Start" Grid.Column="1" FontAttributes="Bold" Text="{Binding AddressDetails.Location}"  TextColor="Black" />
+
+                                    </Grid>
+                                    <Button Style="{StaticResource SecondaryButton}" VerticalOptions="Start" Text="Book Appointment" HeightRequest="50" Padding="10" Command="{Binding BindingContext.BookAppointmentCommand, Source={x:Reference SelectTenant}}" CommandParameter="{Binding .}" /> 
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

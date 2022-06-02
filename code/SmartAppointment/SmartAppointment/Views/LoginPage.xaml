@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+             x:Class="SmartAppointment.Views.LoginPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.FlyoutItemIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             Visual="Default">
+    <ContentPage.Content>
+        <StackLayout Padding="10" IsVisible="{Binding ShowLoginContent}">
+            <Image Source="appointment_login.jpg"  Aspect="AspectFill" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" />
+
+
+            <Image Source="logo.png" Aspect="AspectFit" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" />
+
+            <Button Style="{StaticResource PrimaryButton}" CornerRadius="5" Margin="0,0,0,10" VerticalOptions="End" ContentLayout="Right" Text="{Binding LoginLabel}" Command="{Binding LoginCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.SignIn}"/>
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

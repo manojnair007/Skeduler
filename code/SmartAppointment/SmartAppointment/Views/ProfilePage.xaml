@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.ProfilePage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fontAwesome="clr-namespace:SmartAppointment.Core.Constants;assembly=SmartAppointment.Core"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False"
+             Shell.PresentationMode="ModalAnimated"
+             Visual="Material">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
+        <Label Text="Profile" TextColor="Black" FontAttributes="Bold" FontSize="28" HorizontalTextAlignment="Start" />
+        <Frame BackgroundColor="Azure" BorderColor="AliceBlue"  Padding="10" HorizontalOptions="FillAndExpand" CornerRadius="5" HeightRequest="100"  HasShadow="False"  WidthRequest="105">
+            <StackLayout  VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding UserFullName}" TextColor="Black" FontAttributes="Bold" FontSize="22" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding EmailId}" TextColor="Black"  FontAttributes="None" FontSize="18" HorizontalTextAlignment="Center" />
+            </StackLayout>
+        </Frame>
+        <Button Style="{StaticResource PrimaryButton}" HorizontalOptions="FillAndExpand" ContentLayout="Right" VerticalOptions="EndAndExpand" CornerRadius="5" Text="Logout" HeightRequest="50" Margin="5,0,10,15" Command="{Binding LogoutCommand}" >
+            <Button.ImageSource>
+                <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwesome:FontAwesome.Logout}"/>                
+            </Button.ImageSource>
+        </Button>
+
+
+
+
+    </StackLayout>
+</ContentPage>

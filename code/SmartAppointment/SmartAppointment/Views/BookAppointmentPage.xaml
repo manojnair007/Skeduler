@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartAppointment.Views.BookAppointmentPage"
+             Title="Select Slot"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             ios:Page.UseSafeArea="true"
+             Shell.TabBarIsVisible="False"
+             Visual="Default">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Spacing="1" Padding="5">
+            <Label Text="{Binding ServiceProviderName}" FontAttributes="Bold" TextColor="Black" FontSize="Large" />
+            <Label Text="{Binding SubCatergory}" TextColor="Black" FontSize="16" />
+            <Label Text="{Binding Location}" TextColor="Black" FontAttributes="Bold" FontSize="Medium" />
+            <Label Text="Select Date" TextColor="Black" FontAttributes="Bold" FontSize="Medium" Padding="0,30,0,0" />
+            <CollectionView
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsLayout="HorizontalList"
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"
+                ItemsSource="{Binding DateSelectors}"
+                HeightRequest="90"
+                SelectedItem="{Binding SelectedDate}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Frame Padding="5,0" VerticalOptions="CenterAndExpand">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="CornerRadius" Value="5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Frame BackgroundColor="{StaticResource ColorAccent}"  BorderColor="{StaticResource Primary}"  Padding="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="5" HeightRequest="75"  HasShadow="False"  WidthRequest="105">
+                                <StackLayout Orientation="Vertical" Padding="0" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding Day}" TextColor="{StaticResource ColorAccentText}" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="24" HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding DateString}" TextColor="{StaticResource Primary}" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Center" />
+                                </StackLayout>
+                            </Frame>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="Select Slot" TextColor="Black" FontAttributes="Bold" FontSize="Medium" Padding="0,30,0,0" />
+            <CollectionView
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsLayout="HorizontalList"
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"
+                ItemsSource="{Binding Slots}"
+                HeightRequest="120"
+               SelectedItem="{Binding SelectedSlot}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="5" VerticalOptions="CenterAndExpand">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="CornerRadius" Value="5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <StackLayout Orientation="Horizontal" Padding="0">
+                                <Frame BackgroundColor="{StaticResource ColorAccent}" BorderColor="{StaticResource Primary}"  Padding="6,10,6,10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="5" HeightRequest="100"  HasShadow="False"  WidthRequest="100">
+                                    <StackLayout Orientation="Vertical" Padding="0">
+                                        <Label Text="{Binding SlotName}" TextColor="{StaticResource ColorAccentText}" FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Center" />
+                                        <Label Text="{Binding SlotTimings}" TextColor="{StaticResource ColorAccentText}" FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                                        <ActivityIndicator WidthRequest="30" HeightRequest="30" Color="{StaticResource Primary}" IsVisible="{Binding IsSlotDetailsLoaded, Converter={StaticResource InvertedBoolConverter}}" VerticalOptions="CenterAndExpand" IsRunning="{Binding IsSlotDetailsLoaded, Converter={StaticResource InvertedBoolConverter}}"/>
+                                        <Label IsVisible="{Binding IsSlotDetailsLoaded}"  Text="{Binding NumberOfAvailableSlotsDisplay}" HorizontalTextAlignment="Center" TextColor="{StaticResource Primary}" FontAttributes="Bold" FontSize="Small" />
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Frame BackgroundColor="Azure" Margin="5,20,12,20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="3"  HasShadow="False" BorderColor="Aqua">
+                <StackLayout Orientation="Vertical" Padding="0" VerticalOptions="CenterAndExpand">
+                    <StackLayout IsVisible="{Binding IsSlotScheduled}" Orientation="Vertical" Padding="0" VerticalOptions="CenterAndExpand">
+                        <Label Text="Appointment will be scheduled for" TextColor="Black" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding ScheduledDate}" TextColor="Black" FontAttributes="Bold" FontSize="28" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding ScheduledTime}" TextColor="Black" FontAttributes="Bold" FontSize="28" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <Label IsVisible="{Binding IsSlotScheduled, Converter={StaticResource InvertedBoolConverter}}"  Text="{Binding ScheduleMessage}" TextColor="Black" FontAttributes="Bold" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <Button Style="{StaticResource PrimaryButton}" IsEnabled="{Binding IsSlotScheduled}" VerticalOptions="Start" CornerRadius="2" Text="Confirm Appointment" HeightRequest="50" Margin="5,0,10,15" Command="{Binding ConfirmBookingCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>
