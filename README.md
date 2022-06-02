@@ -10,7 +10,9 @@ Using service provider app, service providers can see and manage their daily app
 I could develop only customer facing Xamarin.Forms app with some basic features to book and manage appointments. 
 I am uploading the code for anyone to use or refer in their projects.
 
+Below are some screenshots of the app:
 
+![alt text](https://github.com/manojnair007/Skeduler/blob/main/screenshots/1.jpg?raw=true)
 
 <!---
 manojnair007/manojnair007 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
