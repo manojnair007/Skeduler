@@ -7,7 +7,7 @@ This solution has two mobile apps i.e., customer app and service provider app an
 Using customer mobile app, customers can book appointments of various registered service providers (Doctors, Salon, Lawyers etc.), manage booked appointments, get realtime notification of upcoming appointments and other advanced assitance w.r.t their appointments.
 Using service provider app, service providers can see and manage their daily appointments, update status etc.
 
-I could develop only customer facing Xamarin form app with some basic features to book and manage appointments. 
+I could develop only customer facing Xamarin.Forms app with some basic features to book and manage appointments. 
 I am uploading the code for anyone to use or refer in their projects.
 
 
